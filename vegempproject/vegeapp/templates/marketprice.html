@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+.flex {
+    display:flex; 
+}
+.vegeheading {
+    text-align: left;
+    padding-left: 1vw;
+    margin: 0%;
+    margin-bottom: 1vw;
+    font-family: "MS Pゴシック", sans-serif;
+    font-size: 1.5vw;
+    border-left: 5px solid #32cd32;
+}
+.vegeimg {
+    position: relative;
+    left: 1.5vw;
+}
+.left { 
+    width: calc(100% - 30vw);
+}
+.right {
+    width: 30vw;
+    text-align: left;
+    margin-top: 3vw;
+    margin-left: 5vw;
+    font-family: "MS Pゴシック", sans-serif;
+}
+.guide {
+    font-size: 1.5vw;
+    margin: 0%;
+}
+.barparent {
+    width: 20vw;
+}
+.calcanot {
+    margin-top: 3vw;
+}
+.barGET {
+    height: 5px;
+    background-color: #eb6100;
+    animation-name: bar;
+    animation-duration: 1s;
+}
+.barPOST {
+    width: 100%;
+    height: 5px;
+    background-color: #eb6100;
+}
+.gform {
+    width: 30%;
+    padding: 10px 10px;
+    font-size: 1vw;
+    border-radius: 3px;
+    border: 2px solid #ddd;
+    box-sizing: border-box;
+}
+.calcbtn {
+    font-size: 1.2vw;
+    margin-left: 3vw;
+    color: #fff;
+    background-color: #eb6100;
+    border-radius: 100vh;
+}
+.calcbtn:hover {
+    color: #fff;
+    background: #f56500;
+}
+.others {
+    text-align: left;
+    margin-left: 2.5vw;
+    font-family: "MS Pゴシック", sans-serif;
+    font-size: 1.2vw;
+}
+.anot {
+    animation-name: anot;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+.othervegename {
+    margin-right: 1vw;
+}
+.result{
+    margin-top: 1vw;
+    animation-name: result;
+    animation-duration: 0.7s;
+    animation-delay: 0.3;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes anot {
+    from {
+        transform: translateY(10px);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+@keyframes bar {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+@keyframes result {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+{% endblock css %}
+{% block content %}
+<div class="card">
+    <div class="mainbg">
+      <div class="vege_container">
+        <div class="flex">
+          <div class="left">
+            <p class="vegeheading">{{ data.vegename }}</p>
+            <img src="{% static data.imgurl %}" width="350vw" class="vegeimg" />
+          </div>
+          <div class="right">
+            <div class="barparent">
+              <p class="guide">直近の市場価格はいくら？</p>
+              {% if request == 'GET' %}
+              <div class="barGET"></div>
+              {% else %}
+              <div class="barPOST"></div>
+              {% endif %}
+            </div>
+            <p><span style="color: red; font-size: 1.5vw">{{ data.price }}円</span>/kg</p>
+            <p>価格は{{ data.latestdate }}</p>
+            <div class="calcanot">
+              <div>
+                <p class="guide">購入予定の商品は市場価格より高い？</p>
+                {% if request == 'GET' %}
+                <div class="barGET"></div>
+                {% else %}
+                <div class="barPOST"></div>
+                {% endif %}
+              </div>
+              <p>下のフォームに購入する数量を入力してください。</p>
+              <form method="post">
+                {% csrf_token %}
+                <input type="number" step="0.1" class="gform" name="quantity" value={{ quantity }} required/>{{ data.unit }}<input type="submit" class="calcbtn" value="計算する！" />
+              </form>
+              {% if quantity > 0 %}
+              <div class="result">
+                <p>
+                    {{ data.vegename }} {{ quantity }}{{ data.unit }} の市場価格は 
+                    <span style="color:red;font-size: 1.5vw">{{ result }}円</span>
+                    <span style="font-size: 1.5vw">！</span>
+                </p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="others">
+        <div class="flex">
+          <p>他の野菜の市場価格はこちらから</p>
+          <p class="anot">↓↓↓</p>
+        </div>
+        {% for other in others %}
+        <a href="{% url 'marketprice' other.pk %}" class="othervegename">{{ other.vegename }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock content %}

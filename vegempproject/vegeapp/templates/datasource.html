@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+.aboutheading {
+    position: relative;
+    left: 20%;
+    padding-left: 1vw;
+    margin: 0%;
+    margin-bottom: 1vw;
+    font-family: "MS Pゴシック", sans-serif;
+    font-size: 2vw;
+    border-left: 5px solid #32cd32;
+}
+p {
+    margin-bottom: 0.5vw;
+}
+.introfadein {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+{% endblock css %}
+{% block content %}
+<p class="aboutheading">Data source</p>
+<div class="intro">
+    <div class="introfadein">
+        <p>出典は以下のとおりです。</p>
+        <p>内容充実のために今後も増えることが予想されます。</p>
+        <p>ご協力ありがとうございます。</p>
+        <ul>
+         <li><a href="https://www.maff.go.jp/j/zyukyu/anpo/kouri/k_yasai/h22index.html">農林水産省 食品価格動向調査(野菜)</a>を加工して作成</li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}

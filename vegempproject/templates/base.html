@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vegetable Market Price</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300"
+      rel="stylesheet"
+    />
+    <style>
+      #wrapper {
+        width: 100%;
+        overflow: hidden;
+      }
+      .wraptitle {
+        background-image: url({% static 'images/title_bg.jpg' %});
+        border-radius: 20px;
+        width: 60vw;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+      body {
+        background-image: url({% static 'images/vegeframe.jpeg' %});
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .toptitle {
+        font-family: "Alegreya Sans SC", sans-serif;
+        color: rgb(67, 67, 67);
+        text-align: center;
+        margin: 0%;
+      }
+      .firstletter {
+        font-size: 5vw;
+        font-weight: 600;
+      }
+      .subtitle {
+        font-family: sans-serif;
+        font-size: 4vw;
+        color: rgb(3, 97, 3);
+        text-align: center;
+        margin: 0%;
+        margin-bottom: 20px;
+      }
+      .card {
+        text-align: center;
+      }
+      .intro {
+        margin: 0%;
+        width: 70%;
+        font-family: "MS Pゴシック", sans-serif;
+        font-size: 1.5vw;
+        position: relative;
+        left: 20%;
+      }
+      .mainbg {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60vw;
+        background: rgb(248, 247, 247);
+        border: 1px #ccc solid;
+        box-shadow: 0 2px 3px 0 rgb(188, 188, 188);
+        font-size: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .vege_container {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .vegename {
+        margin-top: 0%;
+        font-family: "MS Pゴシック", sans-serif;
+        font-size: 1vw;
+      }
+      .vegeinfo {
+        animation-name: fadein;
+        animation-delay: 0.7s;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+      .info {
+        font-family: "Alegreya Sans SC", sans-serif;
+        font-size: 3.5vw;
+        color: rgb(67, 67, 67);
+        text-align: left;
+        margin: 0%;
+        margin-left: 20px;
+      }
+      .nav-list {
+        text-align: left;
+        padding: 10px 0;
+        margin: 0 auto;
+      }
+      .nav-list-item {
+        list-style: none;
+        display: inline-block;
+        margin: 0 20px;
+        font-family: "MS Pゴシック", sans-serif;
+        font-size: 1.5vw;
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+          transform: translateY(100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      {% block css %}{% endblock css %}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="wrapper">
+        <div class="wraptitle">
+          <p class="toptitle">
+            <span class="firstletter">V</span
+            ><span style="font-size: 4vw">egetable </span>
+            <span class="firstletter">M</span
+            ><span style="font-size: 4vw">arket </span>
+            <span class="firstletter">P</span
+            ><span style="font-size: 4vw">rice</span>
+          </p>
+          <p class="subtitle">野菜市況</p>
+        </div>
+      </div>
+    </header>
+    <main>{% block content %} {% endblock content %}</main>
+    <footer>
+      <div class="wraptitle">
+        <p class="info">Infomation</p>
+        <ul class="nav-list">
+          <li class="nav-list-item">
+            <a href="{% url 'index' %}">Home</a>
+          </li>
+          <li class="nav-list-item">
+            <a href="{% url 'about' %}">About service</a>
+          </li>
+          <li class="nav-list-item">
+            <a href="{% url 'datasource' %}">Data source</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

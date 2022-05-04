@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+.aboutheading {
+    position: relative;
+    left: 20%;
+    padding-left: 1vw;
+    margin: 0%;
+    margin-bottom: 1vw;
+    font-family: "MS Pゴシック", sans-serif;
+    font-size: 2vw;
+    border-left: 5px solid #32cd32;
+}
+p {
+    margin-bottom: 0.5vw;
+}
+.introfadein {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+{% endblock css %}
+{% block content %}
+<p class="aboutheading">About service</p>
+<div class="intro">
+    <div class="introfadein">
+        <p>スーパーで買い物をしていた時にこれって高いの？ということがありました。</p>
+        <p>そこでこのサービスを考えつきました。</p>
+        <p>ネットで野菜の相場を調べると1kg当たりの値段が出てきます。</p>
+        <p>そんなに買わないよ！</p>
+        <p>ということで計算機能をつけてみました。</p>
+        <p>身近な金額がわかるようになりました。</p>
+        <p>当サービスは野菜と同じくなるべく新鮮なデータを提供します。</p>
+        <p>また、実際の価格とは異なることが多いと思いますので、参考程度にご利用ください。</p>
+    </div>
+</div>
+{% endblock content %}

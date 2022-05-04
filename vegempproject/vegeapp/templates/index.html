@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  .homeheading {
+    position: relative;
+    left: 20%;
+    padding-left: 1vw;
+    margin: 0%;
+    margin-bottom: 1vw;
+    font-family: "MS Pゴシック", sans-serif;
+    font-size: 2vw;
+    border-left: 5px solid #32cd32;
+  }
+
+{% endblock css %}
+{% block content %}
+<p class="homeheading">Home</p>
+<div class="intro">
+  <p>スーパーで野菜を買おうと思ったときに高いか安いかわからない。</p>
+  <p>メジャーな野菜くらい相場を覚えたいけど無理！</p>
+  <p>そんな方のために計算もできちゃうアプリを提供します。</p>
+</div>
+ <div class="card">
+  <div class="mainbg">
+    <div class="vege_container">
+      {% for item in data %}
+        <div class="vegeinfo">
+          <a href="{% url 'marketprice' item.pk %}">
+            <img
+              src={% static item.imgurl %}
+              style="height: 12vw"
+              alt="画像を表示できません"
+            />
+            <p class="vegename">{{ item.vegename }}</p>
+          </a>
+        </div>
+        {% if forloop.counter|divisibleby:'3' %}
+          </div>
+          <div class="vege_container">
+        {% endif %}   
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
